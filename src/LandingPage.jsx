@@ -111,14 +111,14 @@ function NINVerificationInputs({ formData, updateField, updateVerificationEntry,
             onChange={(e) => updateVerificationEntry(idx, 'subjectName', e.target.value)}
             type="text"
             placeholder="Subject name (optional)"
-            className="w-full rounded-xl border border-slate-200 px-4 py-3.5 text-sm placeholder:text-slate-400 focus:border-emerald-600 focus:outline-none focus:ring-4 focus:ring-emerald-50 transition-all"
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-sm text-slate-900 placeholder:text-slate-500 focus:border-emerald-600 focus:outline-none focus:ring-4 focus:ring-emerald-50 transition-all"
           />
           <input
             value={entry.nin}
             onChange={(e) => updateVerificationEntry(idx, 'nin', e.target.value)}
             type="text"
             placeholder="NIN *"
-            className="w-full rounded-xl border border-slate-200 px-4 py-3.5 text-sm placeholder:text-slate-400 focus:border-emerald-600 focus:outline-none focus:ring-4 focus:ring-emerald-50 transition-all"
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-sm text-slate-900 placeholder:text-slate-500 focus:border-emerald-600 focus:outline-none focus:ring-4 focus:ring-emerald-50 transition-all"
           />
           {formData.verificationEntries.length > 1 && (
             <button type="button" onClick={() => removeVerificationEntry(idx)} className="text-sm text-red-600 px-3 py-2 rounded-lg border border-red-100 bg-red-50 hover:bg-red-100 transition">

@@ -468,9 +468,115 @@ function createInitialFormData() {
   };
 }
 
+// ============================================================================
+// DISCLAIMER MODAL COMPONENT
+// ============================================================================
+
+function DisclaimerModal({ isOpen, onClose }) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+        {/* Modal Header */}
+        <div className="sticky top-0 bg-gradient-to-r from-emerald-600 to-teal-600 px-6 md:px-8 py-6 flex items-center justify-between">
+          <h2 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
+            <span>⚠️</span> Service Terms & Disclaimer
+          </h2>
+          <button onClick={onClose} className="text-white hover:text-emerald-100 text-2xl leading-none">
+            ✕
+          </button>
+        </div>
+
+        {/* Modal Content */}
+        <div className="p-6 md:p-8 space-y-6 text-slate-700 text-sm md:text-base leading-relaxed">
+          <div>
+            <h3 className="font-bold text-slate-900 mb-3 text-base">Service Provider Information</h3>
+            <p>These services are independently provided by <strong>Marthington Synergy Solutions</strong>, an approved NIMC (National Identification Management Commission) agent. All services are rendered professionally within the scope of NIMC guidelines and regulations.</p>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-slate-900 mb-3 text-base">Voluntary Service</h3>
+            <p>Your use of these services is entirely <strong>voluntary</strong>. You are not obligated to use any of our services. By submitting your information through this platform, you confirm that you are doing so of your own free will and are not being coerced or forced.</p>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-slate-900 mb-3 text-base">Professional Assistance</h3>
+            <p>As an approved NIMC agent, we provide specialized assistance to individuals who require support in navigating government procedures, NIN verification, modifications, and enrollment processes. Our services are designed for those who genuinely need professional help to complete these processes efficiently and correctly.</p>
+          </div>
+
+          <div className="rounded-lg bg-red-50 border border-red-200 p-4">
+            <h3 className="font-bold text-red-900 mb-2 text-base flex items-center gap-2">
+              <span>❌</span> No Refund Policy
+            </h3>
+            <p className="text-red-800"><strong>IMPORTANT:</strong> Once payment is processed and work has begun, <strong>there are NO refunds</strong>. We only refund if payment is unsuccessful or if the service cannot be initiated. After processing has started, no refunds will be issued under any circumstances.</p>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-slate-900 mb-3 text-base">Accuracy & Responsibility</h3>
+            <p>You are solely responsible for the <strong>accuracy and truthfulness of all information</strong> provided. Intentionally providing false, misleading, or incomplete information may result in:</p>
+            <ul className="list-disc pl-6 mt-2 space-y-1">
+              <li>Rejection of your application by NIMC</li>
+              <li>Denial of refunds, as you confirmed the accuracy of your submission</li>
+              <li>Potential legal consequences if fraudulent information is detected</li>
+            </ul>
+          </div>
+
+          <div className="rounded-lg bg-amber-50 border border-amber-200 p-4">
+            <h3 className="font-bold text-amber-900 mb-2 text-base flex items-center gap-2">
+              <span>⚠️</span> Critical Declarations
+            </h3>
+            <p className="text-amber-800 mb-3">Please carefully read and understand the following:</p>
+            <ul className="space-y-2 text-amber-800 text-sm">
+              <li><strong>• Prior Modifications:</strong> If you declare that you have NOT previously done a modification on your NIN (or registered on the NIMC Self-Service Portal) when in fact you have, this is considered fraud and voids all refund eligibility.</li>
+              <li><strong>• Consent & Declarations:</strong> If you answer "No" to questions about prior registrations or modifications when your answer should be "Yes," there will be no refunds once this discrepancy is discovered.</li>
+              <li><strong>• Honest Disclosure:</strong> You must provide <strong>completely honest and accurate</strong> answers to all questions, especially regarding prior modifications and registrations.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-slate-900 mb-3 text-base">Limited Refund Scenarios</h3>
+            <p>Refunds are only available in these cases:</p>
+            <ul className="list-disc pl-6 space-y-1 mt-2">
+              <li>Payment failed or was not successfully processed</li>
+              <li>Service could not be initiated due to technical reasons beyond your control</li>
+              <li>Service explicitly cancelled by Marthington Synergy Solutions before processing begins</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-slate-900 mb-3 text-base">Privacy & Data Security</h3>
+            <p>Your personal and identity information is handled with strict confidentiality. We collect only the information necessary to process your request and comply with NIMC requirements. Your data will not be shared with third parties except as required by law or NIMC.</p>
+          </div>
+
+          <div className="rounded-lg bg-slate-100 p-4">
+            <p className="text-slate-700 text-sm"><strong>By checking the agreement box below, you acknowledge that:</strong></p>
+            <ul className="list-disc pl-6 mt-2 space-y-1 text-slate-700">
+              <li>You have read and understood this entire disclaimer</li>
+              <li>You are using these services voluntarily and without coercion</li>
+              <li>All information you provide is accurate and truthful</li>
+              <li>You accept the no-refund policy</li>
+              <li>You understand the consequences of providing false information</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Modal Footer */}
+        <div className="sticky bottom-0 bg-slate-50 border-t border-slate-200 px-6 md:px-8 py-4 flex justify-end">
+          <button onClick={onClose} className="px-6 py-2.5 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 transition">
+            I Understand
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function LandingPage() {
   const [activeService, setActiveService] = useState(null);
   const [formData, setFormData] = useState(createInitialFormData());
+  const [disclaimerAgreed, setDisclaimerAgreed] = useState(false);
+  const [showDisclaimerModal, setShowDisclaimerModal] = useState(false);
   const navigate = useNavigate();
 
   const createRequestId = () => `req-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -813,6 +919,7 @@ export default function LandingPage() {
               onClick={() => {
                 setActiveService(null);
                 setFormData(createInitialFormData());
+                setDisclaimerAgreed(false);
               }}
               className="text-slate-600 hover:text-slate-900 mb-6 flex items-center gap-2 font-bold transition"
             >
@@ -865,16 +972,57 @@ export default function LandingPage() {
                 <DateOfBirthCorrectionInputs formData={formData} updateGroupField={updateGroupField} />
               )}
 
+              {/* Disclaimer Checkbox */}
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                <div className="flex items-start gap-4">
+                  <input
+                    id="disclaimerCheckbox"
+                    type="checkbox"
+                    checked={disclaimerAgreed}
+                    onChange={(e) => setDisclaimerAgreed(e.target.checked)}
+                    className="h-5 w-5 rounded cursor-pointer mt-0.5 flex-shrink-0 accent-emerald-600"
+                  />
+                  <div className="flex-1">
+                    <label htmlFor="disclaimerCheckbox" className="cursor-pointer">
+                      <span className="block text-sm font-bold text-slate-900 mb-1">
+                        I agree to Marthington Synergy Solutions' Terms & No-Refund Policy
+                      </span>
+                      <span className="text-xs text-slate-600">
+                        I confirm that I have read and understood the terms, including the no-refund policy, and that all information provided is accurate and truthful.
+                      </span>
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setShowDisclaimerModal(true)}
+                      className="mt-2 inline-flex items-center gap-2 text-xs font-bold text-emerald-600 hover:text-emerald-700 hover:underline transition"
+                    >
+                      <span className="inline-flex items-center justify-center h-5 w-5 rounded-full bg-emerald-100 text-emerald-700">
+                        ℹ
+                      </span>
+                      View Full Disclaimer
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               {/* Submit Button */}
               <div className="pt-4">
                 <button
                   type="submit"
-                  className="w-full rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-4 text-white font-bold shadow-md shadow-emerald-600/10 transition-all hover:brightness-105 active:scale-[0.99]"
+                  disabled={!disclaimerAgreed}
+                  className={`w-full rounded-xl px-6 py-4 text-white font-bold shadow-md transition-all ${
+                    disclaimerAgreed
+                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 shadow-emerald-600/10 hover:brightness-105 active:scale-[0.99] cursor-pointer'
+                      : 'bg-slate-300 shadow-none cursor-not-allowed opacity-60'
+                  }`}
                 >
-                  Generate Processing Route (₦{activeService.amount.toLocaleString()})
+                  {disclaimerAgreed ? `Generate Processing Route (₦${activeService.amount.toLocaleString()})` : 'Agree to Terms to Continue'}
                 </button>
               </div>
             </form>
+
+            {/* Disclaimer Modal */}
+            <DisclaimerModal isOpen={showDisclaimerModal} onClose={() => setShowDisclaimerModal(false)} />
           </section>
         )}
 

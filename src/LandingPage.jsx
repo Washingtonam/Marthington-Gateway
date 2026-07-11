@@ -845,6 +845,16 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-slate-50/50 px-4 py-12 md:py-20 font-sans text-slate-900 antialiased">
+      <div className="sticky top-0 z-40 mb-6 flex justify-center px-2 md:px-0">
+        <a
+          href="https://ds.marthington.com.ng/dashboard"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full max-w-3xl rounded-full border border-emerald-200 bg-emerald-600 px-4 py-3 text-center text-sm font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-700"
+        >
+          Agent Dashboard Login: Click here to sign in to your dashboard
+        </a>
+      </div>
       <div className="mx-auto max-w-5xl">
         {/* HEADER - ALWAYS VISIBLE */}
         {!activeService && (

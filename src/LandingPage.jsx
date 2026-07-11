@@ -859,6 +859,17 @@ export default function LandingPage() {
             <p className="mt-6 text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
               Skip the long queues. Securely submit your lookup criteria, complete a manual transfer verification, and get results sent directly to your WhatsApp.
             </p>
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <a
+                href="https://ds.marthington.com.ng/dashboard"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-emerald-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-700 hover:shadow-xl"
+              >
+                Agent Dashboard Login
+              </a>
+              <span className="text-sm font-medium text-slate-500">Approved agents can sign in here to access their dashboard.</span>
+            </div>
           </header>
         )}
 
@@ -1034,6 +1045,14 @@ export default function LandingPage() {
           </div>
           <div className="text-xs text-slate-600 md:text-right space-y-1">
             <p><strong>Official Liaison Support:</strong> +234 807 320 0555</p>
+            <a
+              href="https://ds.marthington.com.ng/dashboard"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center font-semibold text-emerald-600 hover:text-emerald-700 hover:underline"
+            >
+              Agent Dashboard Login →
+            </a>
             <p className="text-slate-400">Secure Client Access Framework Module v2.4</p>
           </div>
         </footer>

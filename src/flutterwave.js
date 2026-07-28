@@ -64,6 +64,7 @@ export async function openFlutterwaveCheckout({ publicKey, subaccountId, request
   const customerEmail = details.email || 'customer@example.com';
   const phoneNumber = details.phone || details.gsm || '';
 
+  const redirectUrl = `${window.location.origin}${window.location.pathname}?id=${encodeURIComponent(request.id)}&paid=1`;
   const config = {
     public_key: publicKey,
     tx_ref: `nin-${request.id}-${Date.now()}`,
@@ -88,6 +89,7 @@ export async function openFlutterwaveCheckout({ publicKey, subaccountId, request
     callback: (response) => {
       onSuccess?.(response);
     },
+    redirect_url: redirectUrl,
     onclose: () => {
       onClose?.();
     },

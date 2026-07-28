@@ -26,6 +26,7 @@ export default function PaymentPage() {
   const [receiptName, setReceiptName] = useState('');
   const [paymentStage, setPaymentStage] = useState('idle');
   const [paymentMessage, setPaymentMessage] = useState('');
+  const [whatsappRedirected, setWhatsappRedirected] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -44,13 +45,27 @@ export default function PaymentPage() {
     setRequest(stored);
   }, [location.search, navigate]);
 
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const paid = params.get('paid') === '1';
+    if (!paid || whatsappRedirected || !request) {
+      return;
+    }
+
+    setWhatsappRedirected(true);
+    finalizeWhatsAppHandoff();
+    navigate(`/payment?id=${request.id}`, { replace: true });
+  }, [location.search, navigate, request, whatsappRedirected]);
+
   const handleReceiptChange = (event) => {
     const file = event.target.files?.[0] || null;
     setReceiptName(file ? file.name : '');
   };
 
   const finalizeWhatsAppHandoff = () => {
-    if (!request) return;
+    if (!request || whatsappRedirected) return;
+
+    setWhatsappRedirected(true);
 
     const receiptText = receiptName
       ? `\nReceipt attached: ${receiptName}`
@@ -72,7 +87,12 @@ export default function PaymentPage() {
       receiptName: receiptName || null,
     });
     setRequest((prev) => prev && ({ ...prev, status: 'Payment sent', updatedAt: new Date().toISOString(), receiptName: receiptName || null }));
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    const newWindow = window.open(whatsappUrl, '_blank');
+    if (!newWindow) {
+      window.location.href = whatsappUrl;
+    }
   };
 
   const handlePayWithFlutterwave = async () => {

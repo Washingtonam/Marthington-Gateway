@@ -23,7 +23,6 @@ export default function PaymentPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const [request, setRequest] = useState(null);
-  const [receiptName, setReceiptName] = useState('');
   const [paymentStage, setPaymentStage] = useState('idle');
   const [paymentMessage, setPaymentMessage] = useState('');
   const [whatsappRedirected, setWhatsappRedirected] = useState(false);
@@ -57,19 +56,14 @@ export default function PaymentPage() {
     navigate(`/payment?id=${request.id}`, { replace: true });
   }, [location.search, navigate, request, whatsappRedirected]);
 
-  const handleReceiptChange = (event) => {
-    const file = event.target.files?.[0] || null;
-    setReceiptName(file ? file.name : '');
-  };
+  
 
   const finalizeWhatsAppHandoff = () => {
     if (!request || whatsappRedirected) return;
 
     setWhatsappRedirected(true);
 
-    const receiptText = receiptName
-      ? `\nReceipt attached: ${receiptName}`
-      : '\n(Attaching receipt screenshot below)';
+    const receiptText = '';
 
     const whatsappNumber = '2348073200555';
     const details = request.details || {};
@@ -84,9 +78,8 @@ export default function PaymentPage() {
     updateRequest(request.id, {
       status: 'Payment sent',
       updatedAt: new Date().toISOString(),
-      receiptName: receiptName || null,
     });
-    setRequest((prev) => prev && ({ ...prev, status: 'Payment sent', updatedAt: new Date().toISOString(), receiptName: receiptName || null }));
+    setRequest((prev) => prev && ({ ...prev, status: 'Payment sent', updatedAt: new Date().toISOString() }));
 
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     const newWindow = window.open(whatsappUrl, '_blank');
@@ -199,41 +192,9 @@ export default function PaymentPage() {
             </div>
           </div>
 
-          <div className="rounded-2xl border-2 border-dashed border-slate-200 p-6 mb-8 bg-slate-50/30">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Official Payment Allocation Account</h3>
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between border-b border-slate-100 pb-2">
-                <span className="text-slate-500">Beneficiary Bank</span>
-                <span className="font-bold text-slate-900">OPay</span>
-              </div>
-              <div className="flex justify-between border-b border-slate-100 pb-2">
-                <span className="text-slate-500">Corporate Name</span>
-                <span className="font-bold text-slate-900">Marthington Synergy Solutions</span>
-              </div>
-              <div className="flex justify-between pt-1">
-                <span className="text-slate-500">Account Number</span>
-                <span className="font-mono font-black text-emerald-700 text-base tracking-wider">6104102697</span>
-              </div>
-            </div>
-          </div>
+          {/* Official payment allocation account removed: using Flutterwave checkout instead */}
 
-          <div className="rounded-2xl border border-slate-200/80 p-6 mb-8 bg-white">
-            <label className="block text-sm font-bold text-slate-900">Upload Transfer Document Receipt</label>
-            <p className="text-xs text-slate-500 mt-1 mb-4">Optional context placeholder. The image stays on your local device—simply attach it inside WhatsApp during final confirmation.</p>
-            
-            <div className="relative border border-slate-200 rounded-xl p-3 bg-slate-50/50 flex items-center gap-3">
-              <input 
-                type="file" 
-                accept="image/*" 
-                onChange={handleReceiptChange} 
-                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" 
-              />
-              <span className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700 shadow-sm">Choose File</span>
-              <span className="text-xs text-slate-500 truncate max-w-[200px]">
-                {receiptName || 'No document snapshot loaded'}
-              </span>
-            </div>
-          </div>
+          {/* Receipt upload removed: using Flutterwave flow and automatic confirmation */}
 
           <div className="space-y-4">
             <button 
@@ -243,12 +204,15 @@ export default function PaymentPage() {
             >
               {paymentStage === 'loading' ? '⏳ Opening Flutterwave...' : '💳 Pay With Flutterwave'}
             </button>
-            <button 
-              onClick={handleConfirmPayment} 
-              className="w-full rounded-xl border border-slate-200 bg-white px-6 py-4 text-slate-700 font-bold text-center transition-all hover:bg-slate-50 active:scale-[0.99]"
-            >
-              📩 Continue With Manual WhatsApp Confirmation
-            </button>
+            <div className="flex items-center justify-center">
+              <button
+                onClick={finalizeWhatsAppHandoff}
+                className="text-sm text-slate-700 underline rounded px-3 py-2 bg-white border border-slate-100 hover:bg-slate-50"
+                aria-label="Notify via WhatsApp if redirect failed"
+              >
+                Can’t see the WhatsApp redirect? Notify us on WhatsApp
+              </button>
+            </div>
             {paymentMessage ? (
               <div className={`rounded-xl border px-4 py-3 text-sm ${paymentStage === 'error' ? 'border-rose-200 bg-rose-50 text-rose-700' : paymentStage === 'success' ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-slate-200 bg-slate-50 text-slate-600'}`}>
                 {paymentMessage}

@@ -34,17 +34,27 @@ export function loadFlutterwaveCheckout() {
     script.async = true;
     script.onload = () => {
       script.dataset.loaded = 'true';
+      console.debug('[flutterwave] checkout script loaded:', FLUTTERWAVE_SCRIPT_URL);
       resolve(true);
     };
-    script.onerror = () => resolve(false);
+    script.onerror = (event) => {
+      console.error('[flutterwave] failed to load checkout script', FLUTTERWAVE_SCRIPT_URL, event);
+      resolve(false);
+    };
     document.body.appendChild(script);
   });
 }
 
 export async function openFlutterwaveCheckout({ publicKey, subaccountId, request, onSuccess, onClose, onError }) {
   const loaded = await loadFlutterwaveCheckout();
-  if (!loaded || typeof window.FlutterwaveCheckout !== 'function') {
-    onError?.('Flutterwave checkout could not be loaded. Please verify your public key and network access.');
+  if (!loaded) {
+    onError?.('Flutterwave checkout script failed to load. Check browser network access and ensure https://checkout.flutterwave.com/v3.js is reachable.');
+    return;
+  }
+
+  if (typeof window.FlutterwaveCheckout !== 'function') {
+    console.error('[flutterwave] FlutterwaveCheckout object missing after script load', window.FlutterwaveCheckout);
+    onError?.('Flutterwave checkout script loaded but the checkout object is unavailable. This may be due to a blocked browser extension or an invalid script response.');
     return;
   }
 

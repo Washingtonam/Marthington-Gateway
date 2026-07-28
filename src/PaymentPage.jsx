@@ -1,6 +1,7 @@
 ﻿import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getRequestById, updateRequest } from './requestStorage';
+import { openFlutterwaveCheckout } from './flutterwave';
 
 function renderDetailValue(value) {
   if (value === null || value === undefined || value === '') {
@@ -23,6 +24,8 @@ export default function PaymentPage() {
   const navigate = useNavigate();
   const [request, setRequest] = useState(null);
   const [receiptName, setReceiptName] = useState('');
+  const [paymentStage, setPaymentStage] = useState('idle');
+  const [paymentMessage, setPaymentMessage] = useState('');
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -46,7 +49,7 @@ export default function PaymentPage() {
     setReceiptName(file ? file.name : '');
   };
 
-  const handleConfirmPayment = () => {
+  const finalizeWhatsAppHandoff = () => {
     if (!request) return;
 
     const receiptText = receiptName
@@ -70,6 +73,55 @@ export default function PaymentPage() {
     });
     setRequest((prev) => prev && ({ ...prev, status: 'Payment sent', updatedAt: new Date().toISOString(), receiptName: receiptName || null }));
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
+  const handlePayWithFlutterwave = async () => {
+    if (!request) return;
+
+    const publicKey = import.meta.env.VITE_FLUTTERWAVE_PUBLIC_KEY || '';
+    const subaccountId = import.meta.env.VITE_FLUTTERWAVE_SUBACCOUNT_ID || '';
+
+    if (!publicKey) {
+      setPaymentMessage('Flutterwave public key is missing. Set VITE_FLUTTERWAVE_PUBLIC_KEY in your environment file.');
+      return;
+    }
+
+    setPaymentStage('loading');
+    setPaymentMessage('Opening Flutterwave checkout...');
+
+    try {
+      await openFlutterwaveCheckout({
+        publicKey,
+        subaccountId,
+        request,
+        onSuccess: (response) => {
+          setPaymentStage('success');
+          setPaymentMessage(`Payment completed. Reference: ${response?.tx_ref || 'unknown'}`);
+          updateRequest(request.id, {
+            status: 'Payment confirmed',
+            updatedAt: new Date().toISOString(),
+            paymentReference: response?.tx_ref || null,
+          });
+          setRequest((prev) => prev && ({ ...prev, status: 'Payment confirmed', updatedAt: new Date().toISOString(), paymentReference: response?.tx_ref || null }));
+          finalizeWhatsAppHandoff();
+        },
+        onClose: () => {
+          setPaymentStage('idle');
+          setPaymentMessage('Payment window closed. You can try again when ready.');
+        },
+        onError: (errorMessage) => {
+          setPaymentStage('error');
+          setPaymentMessage(errorMessage || 'Payment could not be completed.');
+        },
+      });
+    } catch (error) {
+      setPaymentStage('error');
+      setPaymentMessage(error?.message || 'Payment could not be completed.');
+    }
+  };
+
+  const handleConfirmPayment = () => {
+    finalizeWhatsAppHandoff();
   };
 
   if (!request) {
@@ -165,13 +217,25 @@ export default function PaymentPage() {
 
           <div className="space-y-4">
             <button 
-              onClick={handleConfirmPayment} 
-              className="w-full rounded-xl bg-emerald-600 px-6 py-4 text-white font-bold text-center shadow-lg shadow-emerald-600/10 transition-all hover:bg-emerald-700 active:scale-[0.99] flex items-center justify-center gap-2"
+              onClick={handlePayWithFlutterwave} 
+              disabled={paymentStage === 'loading'}
+              className="w-full rounded-xl bg-emerald-600 px-6 py-4 text-white font-bold text-center shadow-lg shadow-emerald-600/10 transition-all hover:bg-emerald-700 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-70 flex items-center justify-center gap-2"
             >
-              🚀 I Have Completed the Wire Transfer
+              {paymentStage === 'loading' ? '⏳ Opening Flutterwave...' : '💳 Pay With Flutterwave'}
             </button>
+            <button 
+              onClick={handleConfirmPayment} 
+              className="w-full rounded-xl border border-slate-200 bg-white px-6 py-4 text-slate-700 font-bold text-center transition-all hover:bg-slate-50 active:scale-[0.99]"
+            >
+              📩 Continue With Manual WhatsApp Confirmation
+            </button>
+            {paymentMessage ? (
+              <div className={`rounded-xl border px-4 py-3 text-sm ${paymentStage === 'error' ? 'border-rose-200 bg-rose-50 text-rose-700' : paymentStage === 'success' ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-slate-200 bg-slate-50 text-slate-600'}`}>
+                {paymentMessage}
+              </div>
+            ) : null}
             <p className="text-center text-[11px] text-slate-400">
-              Clicking triggers an instant link routing to secure liaison support managed directly under Amedu Washington.
+              Use Flutterwave for instant card/bank payment. If you prefer the existing manual process, use the WhatsApp confirmation button.
             </p>
           </div>
         </div>

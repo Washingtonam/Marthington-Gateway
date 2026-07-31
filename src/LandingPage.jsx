@@ -1011,7 +1011,7 @@ export default function LandingPage() {
                   <div className="flex-1">
                     <label htmlFor="disclaimerCheckbox" className="cursor-pointer">
                       <span className="block text-sm font-bold text-slate-900 mb-1">
-                        I Agree to the Terms (No Refunds After We Start)
+                        I Agree to the Terms & Disclaimer
                       </span>
                       <span className="text-xs text-slate-600">
                         I confirm my information is correct and I understand we cannot refund money once work begins.

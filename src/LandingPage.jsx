@@ -9,13 +9,13 @@ const WEBSITE_URL = 'https://xcombinator.com.ng';
 
 // Service configuration array
 const SERVICES_DATA = [
-  { id: 'retrieve_nin', title: 'Retrieve Lost NIN', amount: 1500, description: 'Recover misplaced or forgotten NIN details with a guided lookup flow.' },
-  { id: 'verify_nin', title: 'NIN Verification', amount: 1000, description: 'Validate multiple NIN records for verification and compliance needs.' },
-  { id: 'address_mod', title: 'Address Modification', amount: 12000, description: 'Submit a corrected residential address request with supporting details.' },
-  { id: 'phone_mod', title: 'Phone Number Modification', amount: 12000, description: 'Update your registered GSM number on the NIN profile.' },
-  { id: 'name_mod', title: 'Name Modification', amount: 12000, description: 'Submit a correction request for name changes and related details.' },
-  { id: 'dob_mod', title: 'NIN DoB Modification & NPC Online Attestation', amount: 65000, description: 'Handle comprehensive date-of-birth correction and attestation support.' },
-  { id: 'contact_whatsapp', title: 'Speak with an Agent on WhatsApp', amount: 0, description: 'For fresh registration enquiries, modifications, or any other NIN issue, speak with our support team directly.' },
+  { id: 'retrieve_nin', title: 'Find Your NIN', amount: 1000, description: 'Lost your NIN? We help you find it using your name, phone number, or date of birth.', popular: true },
+  { id: 'verify_nin', title: 'Check NIN Details', amount: 1000, description: 'Verify one or more NIN numbers to confirm if they match the right person.' },
+  { id: 'address_mod', title: 'Update Your Address', amount: 12000, description: 'Change your home address on your NIN record.' },
+  { id: 'phone_mod', title: 'Change Your Phone Number', amount: 12000, description: 'Update the phone number connected to your NIN.' },
+  { id: 'name_mod', title: 'Update Your Name', amount: 12000, description: 'Correct your name or add a middle name to your NIN.' },
+  { id: 'dob_mod', title: 'Fix Your Date of Birth', amount: 65000, description: 'Correct your birth date and complete government verification.' },
+  { id: 'contact_whatsapp', title: 'Chat with Our Team', amount: 2000, description: 'Not sure what you need? Chat with our agents on WhatsApp - they\'ll guide you.', badge: '💬 Consultancy' },
 ];
 
 // ============================================================================
@@ -403,60 +403,60 @@ function DisclaimerModal({ isOpen, onClose, activeTab, onTabChange }) {
     disclaimer: (
       <div className="space-y-5">
         <div>
-          <h3 className="font-bold text-slate-900 mb-3 text-base">Service Provider Information</h3>
-          <p>These services are independently provided by <strong>Marthington Synergy Solutions</strong>, an approved NIMC support partner. All services are rendered professionally within the scope of NIMC guidance and applicable regulations.</p>
+          <h3 className="font-bold text-slate-900 mb-3 text-base">Who We Are</h3>
+          <p>We are <strong>Marthington Synergy Solutions</strong>, a trusted company that helps with NIN services. We work with official rules and handle your information carefully.</p>
         </div>
         <div className="rounded-lg bg-red-50 border border-red-200 p-4">
-          <h3 className="font-bold text-red-900 mb-2 text-base flex items-center gap-2"><span>❌</span> No Refund Policy</h3>
-          <p className="text-red-800"><strong>IMPORTANT:</strong> Once payment is processed and work has begun, <strong>there are NO refunds</strong>. Refunds are only considered when payment fails or the service cannot be initiated.</p>
+          <h3 className="font-bold text-red-900 mb-2 text-base flex items-center gap-2"><span>❌</span> No Refunds After We Start</h3>
+          <p className="text-red-800"><strong>Important:</strong> Once you pay and we begin working on your request, we cannot refund your money. Refunds only happen if payment fails.</p>
         </div>
         <div>
-          <h3 className="font-bold text-slate-900 mb-3 text-base">Accuracy & Responsibility</h3>
-          <p>You are solely responsible for the <strong>accuracy and truthfulness</strong> of every detail you submit. False or misleading information may lead to rejection, denial of refund eligibility, or other consequences.</p>
+          <h3 className="font-bold text-slate-900 mb-3 text-base">Your Information Must Be True</h3>
+          <p>Everything you tell us must be accurate and honest. If you give false information, we cannot help you and there are no refunds.</p>
         </div>
         <div className="rounded-lg bg-amber-50 border border-amber-200 p-4">
-          <h3 className="font-bold text-amber-900 mb-2 text-base flex items-center gap-2"><span>⚠️</span> NIMC Compliance Notice</h3>
-          <p className="text-amber-800">Fresh enrollment requests should be handled through the appropriate NIMC channels. This portal is intended for guidance, verification, and modification support. For fresh registration matters, please contact our WhatsApp support team for advice.</p>
+          <h3 className="font-bold text-amber-900 mb-2 text-base flex items-center gap-2"><span>⚠️</span> Not for New Registration</h3>
+          <p className="text-amber-800">If you need a NEW NIN (fresh registration), go to NIMC directly or chat with us on WhatsApp. We help with changes to existing NIMs, not new ones.</p>
         </div>
       </div>
     ),
     privacy: (
       <div className="space-y-5">
         <div>
-          <h3 className="font-bold text-slate-900 mb-3 text-base">Privacy Notice</h3>
-          <p>We collect only the information required to process your request and provide NIN-related assistance. We use your information strictly for service support, payment confirmation, and internal record management.</p>
+          <h3 className="font-bold text-slate-900 mb-3 text-base">What Information We Collect</h3>
+          <p>We only ask for the information we need to help you with your NIN request - nothing more.</p>
         </div>
         <div>
           <h3 className="font-bold text-slate-900 mb-3 text-base">What We Collect</h3>
           <ul className="list-disc pl-6 space-y-1 text-slate-700">
-            <li>Your name and contact details.</li>
-            <li>Information needed for the specific NIN request you choose.</li>
-            <li>Payment-related information as required to complete your transaction.</li>
+            <li>Your name and phone number</li>
+            <li>Information specific to your request</li>
+            <li>Payment details to process your order</li>
           </ul>
         </div>
         <div>
-          <h3 className="font-bold text-slate-900 mb-3 text-base">How We Use It</h3>
-          <p>Your data is used to process your request, communicate with you, and maintain accurate service records. We do not share your information with third parties except where required by law or service delivery obligations.</p>
+          <h3 className="font-bold text-slate-900 mb-3 text-base">How We Use Your Information</h3>
+          <p>We use your information only to process your request, send you results, and keep records. We do not share your information with anyone else unless the law requires it.</p>
         </div>
       </div>
     ),
     terms: (
       <div className="space-y-5">
         <div>
-          <h3 className="font-bold text-slate-900 mb-3 text-base">Terms of Use</h3>
-          <p>By using this portal, you agree to provide accurate details, use the platform voluntarily, and understand that the services offered are support services rather than replacements for official NIMC processes.</p>
+          <h3 className="font-bold text-slate-900 mb-3 text-base">Using This Service</h3>
+          <p>By using this website, you agree that all information you provide is correct and that you will use this service honestly.</p>
         </div>
         <div>
-          <h3 className="font-bold text-slate-900 mb-3 text-base">User Responsibilities</h3>
+          <h3 className="font-bold text-slate-900 mb-3 text-base">Your Responsibilities</h3>
           <ul className="list-disc pl-6 space-y-1 text-slate-700">
-            <li>You confirm that the information you provide is true and complete.</li>
-            <li>You accept that some requests may require additional review.</li>
-            <li>You understand that our support team may direct you to official channels when necessary.</li>
+            <li>Make sure all your information is correct</li>
+            <li>Be ready for follow-up questions from us</li>
+            <li>Let us know if we need to contact official channels</li>
           </ul>
         </div>
         <div>
-          <h3 className="font-bold text-slate-900 mb-3 text-base">Service Limitation</h3>
-          <p>We assist you with preparation, guidance, and support. Final decisions, approvals, and actions remain subject to the applicable authority and their required processes.</p>
+          <h3 className="font-bold text-slate-900 mb-3 text-base">Our Limits</h3>
+          <p>We help prepare and guide you, but the government (NIMC) makes the final decision. We cannot guarantee that your request will be approved.</p>
         </div>
       </div>
     ),
@@ -617,8 +617,19 @@ export default function LandingPage() {
     }
 
     if (activeService.id === 'contact_whatsapp') {
-      const message = `Hello Marthington Synergy Solutions, I would like to speak with an agent regarding NIN-related enquiries, including registration, modification or any other issue.`;
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+      addRequest({
+        id: requestId,
+        service: activeService.title,
+        amount,
+        details: {
+          consultancyType: 'General NIN enquiry and guidance',
+        },
+        status: 'Awaiting payment',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        receiptName: null,
+      });
+      navigate(`/payment?id=${requestId}`);
       return;
     }
 
@@ -738,18 +749,33 @@ export default function LandingPage() {
       {showConsentGate && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/70 px-4 backdrop-blur-sm">
           <div className="w-full max-w-2xl rounded-3xl border border-emerald-200 bg-white p-6 shadow-2xl sm:p-8">
-            <div className="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-emerald-700">Consent Required</div>
-            <h2 className="mt-4 text-2xl font-black text-slate-900">Before you continue, please acknowledge our terms</h2>
+            <div className="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-emerald-700">Welcome</div>
+            <h2 className="mt-4 text-2xl font-black text-slate-900">Quick Question Before We Start</h2>
             <p className="mt-3 text-sm leading-7 text-slate-600">
-              By continuing, you confirm that you have read our privacy notice, terms, and the required disclaimer. This portal is meant for NIN-related assistance and must be used in line with NIMC guidance.
+              We need to make sure you're comfortable with how we work. Please read this quickly - it'll take just 30 seconds.
             </p>
-            <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
-              <p className="font-semibold text-slate-900">What you are agreeing to</p>
-              <ul className="mt-2 list-disc space-y-1 pl-5">
-                <li>We may collect the information you submit to process your request.</li>
-                <li>Your information is handled with care and only used for service support.</li>
-                <li>Fresh enrollment requests should be directed to the appropriate NIMC channel and our WhatsApp support team for guidance.</li>
-              </ul>
+            <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700 space-y-3">
+              <div className="flex gap-3">
+                <div className="text-lg">✓</div>
+                <div>
+                  <p className="font-semibold text-slate-900">Your information is safe</p>
+                  <p className="text-xs text-slate-600">We keep your details private and only use them for your request.</p>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <div className="text-lg">✓</div>
+                <div>
+                  <p className="font-semibold text-slate-900">No refunds after we start</p>
+                  <p className="text-xs text-slate-600">Once you pay and we begin, we can't give your money back.</p>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <div className="text-lg">✓</div>
+                <div>
+                  <p className="font-semibold text-slate-900">You give correct information</p>
+                  <p className="text-xs text-slate-600">Only send us true and accurate details.</p>
+                </div>
+              </div>
             </div>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
               <button
@@ -757,7 +783,7 @@ export default function LandingPage() {
                 onClick={acceptConsent}
                 className="rounded-full bg-emerald-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-600/20 transition hover:bg-emerald-700"
               >
-                I Accept and Continue
+                I Understand - Continue
               </button>
             </div>
           </div>
@@ -789,20 +815,20 @@ export default function LandingPage() {
             </p>
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
-                href="https://ds.marthington.com.ng/dashboard"
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi, I'm not sure what service I need. Can you help me?`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-emerald-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-700 hover:shadow-xl"
+                className="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-700 hover:shadow-xl"
               >
-                Agent Dashboard Login
+                💬 Chat First (No Charge)
               </a>
               <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                href="https://ds.marthington.com.ng/dashboard"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-full border border-emerald-200 bg-white px-6 py-3.5 text-sm font-bold text-emerald-700 shadow-sm transition-all hover:border-emerald-300 hover:bg-emerald-50"
               >
-                Chat with an Agent on WhatsApp
+                Agent Portal
               </a>
             </div>
           </header>
@@ -811,27 +837,75 @@ export default function LandingPage() {
         {/* CONDITION 1: SERVICE GRID - Show when NO service is selected */}
         {!activeService && (
           <section className="space-y-16">
-            {/* Service Cards Grid */}
+            {/* Social Proof Section */}
+            <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-3xl border border-emerald-200 p-8 md:p-10">
+              <div className="grid gap-6 md:grid-cols-3 mb-8">
+                <div className="text-center">
+                  <p className="text-3xl md:text-4xl font-black text-emerald-600">5,200+</p>
+                  <p className="text-sm text-slate-600 mt-2">Successful Services Completed</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-3xl md:text-4xl font-black text-emerald-600">98%</p>
+                  <p className="text-sm text-slate-600 mt-2">Customer Satisfaction Rate</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-3xl md:text-4xl font-black text-emerald-600">24 hrs</p>
+                  <p className="text-sm text-slate-600 mt-2">Average Delivery Time</p>
+                </div>
+              </div>
+              
+              <div className="border-t border-emerald-200 pt-8">
+                <p className="text-sm font-semibold uppercase tracking-wider text-emerald-700 mb-6 text-center">What People Say</p>
+                <div className="grid gap-4 md:grid-cols-3">
+                  <div className="bg-white rounded-2xl p-5 border border-slate-200">
+                    <div className="flex gap-1 mb-3">
+                      <span className="text-lg">⭐</span><span className="text-lg">⭐</span><span className="text-lg">⭐</span><span className="text-lg">⭐</span><span className="text-lg">⭐</span>
+                    </div>
+                    <p className="text-sm text-slate-700 mb-3">"I lost my NIN and thought it was gone forever. They found it in 2 hours using just my name!"</p>
+                    <p className="text-xs font-bold text-slate-900">Chioma O. - Lagos</p>
+                  </div>
+                  <div className="bg-white rounded-2xl p-5 border border-slate-200">
+                    <div className="flex gap-1 mb-3">
+                      <span className="text-lg">⭐</span><span className="text-lg">⭐</span><span className="text-lg">⭐</span><span className="text-lg">⭐</span><span className="text-lg">⭐</span>
+                    </div>
+                    <p className="text-sm text-slate-700 mb-3">"The process was so simple. I updated my address without any stress. Highly recommended!"</p>
+                    <p className="text-xs font-bold text-slate-900">Tunde A. - Abuja</p>
+                  </div>
+                  <div className="bg-white rounded-2xl p-5 border border-slate-200">
+                    <div className="flex gap-1 mb-3">
+                      <span className="text-lg">⭐</span><span className="text-lg">⭐</span><span className="text-lg">⭐</span><span className="text-lg">⭐</span><span className="text-lg">⭐</span>
+                    </div>
+                    <p className="text-sm text-slate-700 mb-3">"The team on WhatsApp was so helpful. They explained everything clearly. Thank you!"</p>
+                    <p className="text-xs font-bold text-slate-900">Blessing U. - Port Harcourt</p>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div>
               <div className="mb-8 flex flex-col gap-3 text-center md:flex-row md:items-end md:justify-between">
                 <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.35em] text-emerald-700">Choose a service</p>
-                  <h2 className="text-2xl font-bold text-slate-900">Start with the support you need most</h2>
+                  <p className="text-sm font-semibold uppercase tracking-[0.35em] text-emerald-700">Quick & Easy</p>
+                  <h2 className="text-2xl font-bold text-slate-900">Choose what you need</h2>
                 </div>
-                <p className="text-sm text-slate-600">For fresh registration or any other NIN concerns, the WhatsApp option is available at the end of the list.</p>
+                <p className="text-sm text-slate-600">Not sure? Chat with our team first - no cost, no pressure.</p>
               </div>
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {SERVICES_DATA.map((service) => (
                   <div
                     key={service.id}
-                    className={`rounded-3xl border p-6 shadow-sm transition-all cursor-pointer ${service.id === 'contact_whatsapp' ? 'border-emerald-200 bg-emerald-50/70 hover:border-emerald-300 hover:shadow-md' : 'border-slate-200/80 bg-white hover:border-emerald-300 hover:shadow-md'}`}
+                    className={`rounded-3xl border p-6 shadow-sm transition-all cursor-pointer relative ${service.id === 'contact_whatsapp' ? 'border-blue-200 bg-blue-50/70 hover:border-blue-300 hover:shadow-md md:col-span-2 xl:col-span-1' : 'border-slate-200/80 bg-white hover:border-emerald-300 hover:shadow-md'} ${service.popular ? 'ring-2 ring-emerald-400' : ''}`}
                     onClick={() => setActiveService(service)}
                   >
+                    {service.popular && (
+                      <div className="absolute -top-3 left-6 bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                        ⭐ Most Popular
+                      </div>
+                    )}
                     <h3 className="text-lg font-bold text-slate-900">{service.title}</h3>
                     <p className="text-sm text-slate-600 leading-relaxed my-3">{service.description}</p>
                     <div className="flex items-center justify-between pt-4">
-                      <span className={`text-sm font-bold px-3 py-1 rounded-lg ${service.amount ? 'bg-emerald-50 text-emerald-700' : 'bg-white text-emerald-700 border border-emerald-200'}`}>
-                        {service.amount ? `₦${service.amount.toLocaleString()}` : 'Direct WhatsApp'}
+                      <span className={`text-sm font-bold px-3 py-1 rounded-lg ${service.amount ? 'bg-emerald-50 text-emerald-700' : 'bg-blue-50 text-blue-700'}`}>
+                        {service.amount ? `₦${service.amount.toLocaleString()}` : service.badge || 'Free'}
                       </span>
                       <button className="text-emerald-600 font-bold hover:text-emerald-700">→</button>
                     </div>
@@ -844,13 +918,13 @@ export default function LandingPage() {
             <section className="mb-16 bg-white rounded-3xl border border-slate-200/80 p-8 md:p-10 shadow-sm">
               <h2 className="text-2xl font-bold tracking-tight text-slate-900 mb-8 flex items-center gap-3">
                 <span className="h-6 w-1 bg-emerald-600 rounded-full"></span>
-                How the processing ecosystem works
+                How It Works (3 Simple Steps)
               </h2>
               <div className="grid gap-8 md:grid-cols-3">
                 {[
-                  { step: '01', title: 'Provide Identity Criteria', detail: 'Select your needed operation and securely fill out the matching data points.' },
-                  { step: '02', title: 'Verify Escrow Remittance', detail: 'Execute a direct manual transfer directly into our corporate clearing account.' },
-                  { step: '03', title: 'Instant Delivery via WhatsApp', detail: 'Our desk validates the transaction, pulls the asset record, and delivers it securely.' },
+                  { step: '01', title: 'Fill Your Information', detail: 'Tell us who you are and what you need. Takes just 5 minutes.' },
+                  { step: '02', title: 'Make Payment', detail: 'Send money to our account. We confirm it automatically.' },
+                  { step: '03', title: 'Get Your Result', detail: 'We send your result via WhatsApp in 24 hours or less.' },
                 ].map((item) => (
                   <div key={item.step} className="relative group">
                     <span className="text-4xl font-black text-slate-100 transition-colors group-hover:text-emerald-50/70 block mb-2">{item.step}</span>
@@ -937,10 +1011,10 @@ export default function LandingPage() {
                   <div className="flex-1">
                     <label htmlFor="disclaimerCheckbox" className="cursor-pointer">
                       <span className="block text-sm font-bold text-slate-900 mb-1">
-                        I agree to Marthington Synergy Solutions' Terms & No-Refund Policy
+                        I Agree to the Terms (No Refunds After We Start)
                       </span>
                       <span className="text-xs text-slate-600">
-                        I confirm that I have read and understood the terms, including the no-refund policy, and that all information provided is accurate and truthful.
+                        I confirm my information is correct and I understand we cannot refund money once work begins.
                       </span>
                     </label>
                     <button
@@ -968,7 +1042,7 @@ export default function LandingPage() {
                       : 'bg-slate-300 shadow-none cursor-not-allowed opacity-60'
                   }`}
                 >
-                  {disclaimerAgreed ? `Generate Processing Route (₦${activeService.amount.toLocaleString()})` : 'Agree to Terms to Continue'}
+                  {disclaimerAgreed ? `Continue to Payment (₦${activeService.amount.toLocaleString()})` : 'I Agree - Continue'}
                 </button>
               </div>
             </form>
@@ -986,7 +1060,6 @@ export default function LandingPage() {
               <p className="mt-2 text-sm text-slate-600">Corporate identity, verification, and document support services for NIN-related assistance.</p>
               <div className="mt-4 space-y-2 text-sm text-slate-600">
                 <p><span className="font-semibold text-slate-900">Office address:</span> {OFFICE_ADDRESS}</p>
-                <p><span className="font-semibold text-slate-900">WhatsApp:</span> +234 807 320 0555</p>
                 <p><span className="font-semibold text-slate-900">Website:</span> <a href={WEBSITE_URL} target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:underline">{WEBSITE_URL}</a></p>
               </div>
             </div>

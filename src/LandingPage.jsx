@@ -789,16 +789,6 @@ export default function LandingPage() {
           </div>
         </div>
       )}
-      <div className="sticky top-0 z-40 mb-6 flex justify-center px-2 md:px-0">
-        <a
-          href="https://ds.marthington.com.ng/dashboard"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full max-w-3xl rounded-full border border-emerald-200 bg-emerald-600 px-4 py-3 text-center text-sm font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-700"
-        >
-          Agent Dashboard Login: Click here to sign in to your dashboard
-        </a>
-      </div>
       <div className="mx-auto max-w-5xl">
         {/* HEADER - ALWAYS VISIBLE */}
         {!activeService && (
@@ -822,14 +812,12 @@ export default function LandingPage() {
               >
                 💬 Chat First (No Charge)
               </a>
-              <a
-                href="https://ds.marthington.com.ng/dashboard"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => document.getElementById('services-section').scrollIntoView({ behavior: 'smooth' })}
                 className="inline-flex items-center justify-center rounded-full border border-emerald-200 bg-white px-6 py-3.5 text-sm font-bold text-emerald-700 shadow-sm transition-all hover:border-emerald-300 hover:bg-emerald-50"
               >
-                Agent Portal
-              </a>
+                View Services
+              </button>
             </div>
           </header>
         )}
@@ -882,7 +870,7 @@ export default function LandingPage() {
               </div>
             </div>
             <div>
-              <div className="mb-8 flex flex-col gap-3 text-center md:flex-row md:items-end md:justify-between">
+              <div id="services-section" className="mb-8 flex flex-col gap-3 text-center md:flex-row md:items-end md:justify-between">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.35em] text-emerald-700">Quick & Easy</p>
                   <h2 className="text-2xl font-bold text-slate-900">Choose what you need</h2>
